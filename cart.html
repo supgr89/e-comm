@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Cart - MyStore</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Load cart items from localStorage and display them
+    function loadCart() {
+      const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+      const cartContainer = document.getElementById('cart-items');
+      const cartTotal = document.getElementById('cart-total');
+      const cartCount = document.getElementById('cart-count');
+
+      cartContainer.innerHTML = ''; // Clear previous items
+      let total = 0;
+      let count = 0;
+
+      cartItems.forEach((item, index) => {
+        total += item.price * item.quantity;
+        count += item.quantity;
+
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'bg-white p-4 rounded shadow flex justify-between items-center';
+        itemDiv.innerHTML = `
+          <div>
+            <h4 class="font-semibold text-lg">${item.name}</h4>
+            <p>$${item.price.toFixed(2)}</p>
+          </div>
+          <div class="flex items-center space-x-4">
+            <input type="number" min="1" value="${item.quantity}" class="w-16 border px-2 py-1 rounded" onchange="updateQuantity(${index}, this.value)" />
+            <button class="text-red-500 hover:underline" onclick="removeItem(${index})">Remove</button>
+          </div>
+        `;
+        cartContainer.appendChild(itemDiv);
+      });
+
+      cartTotal.textContent = total.toFixed(2);
+      cartCount.textContent = count;
+    }
+
+    // Update item quantity in localStorage
+    function updateQuantity(index, quantity) {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart[index].quantity = parseInt(quantity);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      loadCart();
+    }
+
+    // Remove item from cart
+    function removeItem(index) {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart.splice(index, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      loadCart();
+    }
+
+    document.addEventListener('DOMContentLoaded', loadCart);
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <!-- Navbar -->
+  <header class="bg-white shadow sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="index.html" class="text-2xl font-bold text-indigo-600 mr-4">MyStore</a>
+      <div class="flex-1 flex justify-end items-center space-x-6 rtl:space-x-reverse">
+        <nav class="hidden md:flex space-x-6 rtl:space-x-reverse" id="desktop-menu">
+          <a href="index.html" class="hover:text-indigo-600">Home</a>
+          <a href="shop.html" class="hover:text-indigo-600">Shop</a>
+          <a href="contact.html" class="hover:text-indigo-600">Contact</a>
+          <a href="profile.html" class="hover:text-indigo-600">Profile</a>
+        </nav>
+        <div class="relative">
+          <button onclick="window.location.href='cart.html'" class="text-gray-600 hover:text-indigo-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 7H18m-6-7v7" />
+            </svg>
+            <span id="cart-count" class="absolute -top-2 -right-2 bg-indigo-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Cart Section -->
+  <section class="max-w-5xl mx-auto px-4 py-10">
+    <h2 class="text-2xl font-bold mb-6">Your Cart</h2>
+    <div id="cart-items" class="space-y-4"></div>
+    <div class="mt-6 text-right">
+      <span class="text-lg font-semibold">Total: $<span id="cart-total">0.00</span></span>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t mt-16 py-8 text-center text-sm text-gray-500">
+    © 2025 MyStore. All rights reserved.
+  </footer>
+</body>
+</html>

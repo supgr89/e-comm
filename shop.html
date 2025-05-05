@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop - MyStore</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <!-- Navbar -->
+  <header class="bg-white shadow sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-indigo-600">MyStore</h1>
+      <nav class="space-x-6 hidden md:flex items-center">
+        <a href="index.html" class="hover:text-indigo-600">Home</a>
+        <a href="shop.html" class="text-indigo-600 font-semibold">Shop</a>
+        <a href="contact.html" class="hover:text-indigo-600">Contact</a>
+        <a href="profile.html" class="hover:text-indigo-600">Profile</a>
+        <div class="relative cursor-pointer" onclick="incrementCart()">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600 hover:text-indigo-600" fill="none"
+            viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.5 6h11l-1.5-6M9 21h.01M15 21h.01" />
+          </svg>
+          <span id="cart-count"
+            class="absolute -top-2 -right-2 bg-red-600 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">0</span>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Shop Section -->
+  <section class="py-16">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold mb-8 text-center">Browse Products</h2>
+      <div class="grid md:grid-cols-4 gap-6">
+        <!-- Filters -->
+        <aside class="bg-white p-6 rounded-lg shadow">
+          <h3 class="font-semibold mb-4">Filters</h3>
+
+          <div class="mb-6">
+            <label class="block text-sm font-medium mb-2">Category</label>
+            <select id="categoryFilter" class="w-full border rounded px-3 py-2">
+              <option value="">All</option>
+              <option value="Clothing">Clothing</option>
+              <option value="Electronics">Electronics</option>
+              <option value="Accessories">Accessories</option>
+              <option value="Home & Kitchen">Home & Kitchen</option>
+            </select>
+          </div>
+
+          <div class="mb-6">
+            <label class="block text-sm font-medium mb-2">Max Price ($)</label>
+            <input type="number" id="priceFilter" min="0" class="w-full border px-3 py-2 rounded">
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium mb-2">Minimum Rating</label>
+            <select id="ratingFilter" class="w-full border rounded px-3 py-2">
+              <option value="0">Any</option>
+              <option value="4">4 Stars & Up</option>
+              <option value="3">3 Stars & Up</option>
+              <option value="2">2 Stars & Up</option>
+            </select>
+          </div>
+        </aside>
+
+        <!-- Product Grid -->
+        <div id="productGrid" class="md:col-span-3 grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t mt-16 py-8 text-center text-sm text-gray-500">
+    © 2025 MyStore. All rights reserved.
+  </footer>
+
+  <script>
+    const products = [
+      { name: "Stylish Hoodie", category: "Clothing", price: 49.99, rating: 4, image: "images/product1.jpg", link: "product1.html" },
+      { name: "Smartphone Pro", category: "Electronics", price: 59.99, rating: 4, image: "images/product2.jpg", link: "product2.html" },
+      { name: "Leather Wallet", category: "Accessories", price: 69.99, rating: 3, image: "images/product3.jpg", link: "product3.html" },
+      { name: "Blender X200", category: "Home & Kitchen", price: 79.99, rating: 5, image: "images/product4.jpg", link: "product4.html" },
+      { name: "Denim Jacket", category: "Clothing", price: 89.99, rating: 4, image: "images/product5.jpg", link: "product5.html" },
+      { name: "Wireless Earbuds", category: "Electronics", price: 99.99, rating: 5, image: "images/product6.jpg", link: "product6.html" },
+      { name: "Sunglasses Elite", category: "Accessories", price: 109.99, rating: 3, image: "images/product7.jpg", link: "product7.html" },
+      { name: "Cookware Set", category: "Home & Kitchen", price: 119.99, rating: 5, image: "images/product8.jpg", link: "product8.html" },
+      { name: "Casual T-Shirt", category: "Clothing", price: 129.99, rating: 2, image: "images/product9.jpg", link: "product9.html" },
+      { name: "Laptop Stand", category: "Electronics", price: 139.99, rating: 4, image: "images/product10.jpg", link: "product10.html" }
+    ];
+
+    const productGrid = document.getElementById('productGrid');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const priceFilter = document.getElementById('priceFilter');
+    const ratingFilter = document.getElementById('ratingFilter');
+
+    function renderProducts() {
+      const category = categoryFilter.value;
+      const maxPrice = parseFloat(priceFilter.value);
+      const minRating = parseInt(ratingFilter.value);
+
+      productGrid.innerHTML = '';
+
+      const filtered = products.filter(p => {
+        return (!category || p.category === category)
+          && (!maxPrice || p.price <= maxPrice)
+          && (p.rating >= minRating);
+      });
+
+      filtered.forEach(p => {
+        const stars = '★'.repeat(p.rating) + '☆'.repeat(5 - p.rating);
+        productGrid.innerHTML += `
+          <div class="bg-white border rounded-xl shadow hover:shadow-lg transition">
+            <img src="${p.image}" alt="${p.name}" class="rounded-t-xl w-full h-40 object-cover">
+            <div class="p-4">
+              <h4 class="font-semibold mb-1">${p.name}</h4>
+              <p class="text-sm text-gray-500 mb-2">${p.category}</p>
+              <span class="text-indigo-600 font-bold block mb-2">$${p.price.toFixed(2)}</span>
+              <span class="text-yellow-500">${stars}</span>
+              <a href="${p.link}" class="mt-2 text-indigo-600 hover:text-indigo-800 block">View Details</a>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    categoryFilter.addEventListener('change', renderProducts);
+    priceFilter.addEventListener('input', renderProducts);
+    ratingFilter.addEventListener('change', renderProducts);
+
+    renderProducts();
+
+    // Cart Counter Logic
+    let cartCount = 0;
+    function incrementCart() {
+      cartCount++;
+      document.getElementById('cart-count').innerText = cartCount;
+    }
+  </script>
+</body>
+</html>

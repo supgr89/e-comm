@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile - MyStore</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800">
+    <!-- Navbar -->
+    <header class="bg-white shadow sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+        <a href="index.html" class="text-2xl font-bold text-indigo-600 mr-4">MyStore</a>
+        <div class="flex-1 flex justify-end items-center space-x-6 rtl:space-x-reverse">
+          <nav class="hidden md:flex space-x-6 rtl:space-x-reverse" id="desktop-menu">
+            <a href="index.html" class="hover:text-indigo-600">Home</a>
+            <a href="shop.html" class="hover:text-indigo-600">Shop</a>
+            <a href="contact.html" class="hover:text-indigo-600">Contact</a>
+            <a href="profile.html" class="text-indigo-600 font-semibold">Profile</a>
+          </nav>
+          <div class="relative">
+            <a href="cart.html" class="text-gray-600 hover:text-indigo-600">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 7H18m-6-7v7" />
+              </svg>
+              <span id="cart-count" class="absolute -top-2 -right-2 bg-indigo-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">2</span>
+            </a>
+          </div>
+          <button class="md:hidden block text-gray-600 hover:text-indigo-600 ml-4" id="menu-toggle">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="md:hidden hidden px-4 pb-4" id="mobile-menu">
+        <nav class="flex flex-col space-y-2">
+          <a href="index.html" class="hover:text-indigo-600">Home</a>
+          <a href="shop.html" class="hover:text-indigo-600">Shop</a>
+          <a href="contact.html" class="hover:text-indigo-600">Contact</a>
+          <a href="profile.html" class="text-indigo-600 font-semibold">Profile</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Profile Section -->
+    <section class="max-w-7xl mx-auto px-4 py-10">
+      <div class="bg-white rounded-xl shadow p-6 flex flex-col md:flex-row items-center gap-6">
+        <img src="https://via.placeholder.com/100" alt="User Avatar" class="w-24 h-24 rounded-full border" />
+        <div class="flex-1">
+          <h2 class="text-2xl font-bold">John Doe</h2>
+          <p class="text-gray-500 mb-4">john@example.com</p>
+          <div class="space-x-4 rtl:space-x-reverse">
+            <button class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Edit Profile</button>
+            <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Logout</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="mt-10">
+        <div class="flex border-b mb-4 justify-end space-x-4 rtl:space-x-reverse">
+          <button class="tab-link px-4 py-2 border-b-2 border-indigo-600 text-indigo-600 font-semibold" onclick="showTab(event, 'orders')">Order History</button>
+          <button class="tab-link px-4 py-2 text-gray-600 hover:text-indigo-600" onclick="showTab(event, 'settings')">Account Settings</button>
+          <button class="tab-link px-4 py-2 text-gray-600 hover:text-indigo-600" onclick="showTab(event, 'addresses')">Shipping Addresses</button>
+        </div>
+
+        <!-- Order History -->
+        <div id="orders" class="tab-content">
+          <div class="bg-white rounded-xl shadow p-6 space-y-4">
+            <div class="border-b pb-2">
+              <h4 class="font-semibold">Order #1234</h4>
+              <p>Stylish Hoodie - $49.99 - <span class="text-green-600 font-semibold">Delivered</span></p>
+            </div>
+            <div class="border-b pb-2">
+              <h4 class="font-semibold">Order #1235</h4>
+              <p>Wireless Earbuds - $99.99 - <span class="text-yellow-600 font-semibold">Shipped</span></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Account Settings -->
+        <div id="settings" class="tab-content hidden">
+          <form class="bg-white rounded-xl shadow p-6 space-y-4 max-w-lg">
+            <div>
+              <label class="block mb-1 font-semibold">Name</label>
+              <input type="text" class="w-full border px-4 py-2 rounded" value="John Doe">
+            </div>
+            <div>
+              <label class="block mb-1 font-semibold">Email</label>
+              <input type="email" class="w-full border px-4 py-2 rounded" value="john@example.com">
+            </div>
+            <div>
+              <label class="block mb-1 font-semibold">Password</label>
+              <input type="password" class="w-full border px-4 py-2 rounded">
+            </div>
+            <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Update Settings</button>
+          </form>
+        </div>
+
+        <!-- Shipping Addresses -->
+        <div id="addresses" class="tab-content hidden">
+          <div class="bg-white rounded-xl shadow p-6 space-y-4">
+            <div class="border-b pb-2">
+              <p class="font-semibold">123 Main Street, New York, NY 10001</p>
+              <div class="space-x-2 mt-2 rtl:space-x-reverse text-right">
+                <button class="text-indigo-600 hover:underline">Edit</button>
+                <button class="text-red-600 hover:underline">Delete</button>
+              </div>
+            </div>
+            <div class="border-b pb-2">
+              <p class="font-semibold">456 Market Street, San Francisco, CA 94103</p>
+              <div class="space-x-2 mt-2 rtl:space-x-reverse text-right">
+                <button class="text-indigo-600 hover:underline">Edit</button>
+                <button class="text-red-600 hover:underline">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t mt-16 py-8 text-center text-sm text-gray-500">
+      © 2025 MyStore. All rights reserved.
+    </footer>
+
+    <script>
+      function showTab(event, tabId) {
+        document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+        document.getElementById(tabId).classList.remove('hidden');
+
+        document.querySelectorAll('.tab-link').forEach(el => {
+          el.classList.remove('border-indigo-600', 'text-indigo-600', 'font-semibold');
+        });
+        event.target.classList.add('border-indigo-600', 'text-indigo-600', 'font-semibold');
+      }
+
+      document.getElementById('menu-toggle').addEventListener('click', function () {
+        document.getElementById('mobile-menu').classList.toggle('hidden');
+      });
+    </script>
+  </body>
+</html>

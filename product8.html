@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portable Power Bank</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Navbar -->
+  <header class="bg-white shadow sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-indigo-600">MyStore</h1>
+      <nav class="space-x-6 hidden md:flex">
+        <a href="index.html" class="hover:text-indigo-600">Home</a>
+        <a href="shop.html" class="hover:text-indigo-600">Shop</a>
+        <a href="#" class="hover:text-indigo-600">Categories</a>
+        <a href="#" class="hover:text-indigo-600">Contact</a>
+      </nav>
+      <div class="md:hidden">
+        <button class="text-gray-600">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+               viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Product Details -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-wrap items-center justify-between">
+        <div class="w-full lg:w-1/2">
+          <img src="images/product8.jpg" alt="Portable Power Bank" class="rounded-lg w-full h-80 object-cover" />
+        </div>
+        <div class="w-full lg:w-1/2 lg:pl-12">
+          <h2 class="text-3xl font-bold mb-4">Portable Power Bank</h2>
+          <p class="text-lg text-gray-500 mb-4">Never run out of battery again with this portable power bank. Fast-charging capabilities and compact design make it an essential accessory for your mobile devices.</p>
+          <span class="text-indigo-600 font-bold text-xl">$39.99</span>
+          <div class="mt-6">
+            <button class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-800">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+      <div class="mt-12">
+        <h3 class="text-2xl font-semibold mb-4">Product Features</h3>
+        <ul class="list-disc pl-6 space-y-2">
+          <li>Fast charging with dual USB ports</li>
+          <li>Compact and lightweight design</li>
+          <li>LED indicators for battery status</li>
+          <li>Overcharge protection for safety</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t mt-16 py-8 text-center text-sm text-gray-500">
+    © 2025 MyStore. All rights reserved.
+  </footer>
+
+</body>
+</html>
